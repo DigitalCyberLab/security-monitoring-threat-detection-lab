@@ -4,7 +4,7 @@
 
 This project focuses on building a cybersecurity monitoring environment using Ubuntu Linux and Wazuh, an open-source security monitoring platform.
 
-The goal is to gain practical experience monitoring Linux systems, collecting security events, analyzing logs, detecting suspicious activity, and investigating potential security threats.
+The goal was to gain practical experience monitoring Linux systems, collecting security events, analyzing logs, detecting suspicious activity, and investigating potential security threats.
 
 ## Project Objectives
 
@@ -18,7 +18,7 @@ The goal is to gain practical experience monitoring Linux systems, collecting se
 ## Technologies
 
 - Ubuntu Linux Server
-- Wazuh
+- Wazuh 4.14.10
 - Linux system logs
 - SSH
 - VirtualBox
@@ -26,36 +26,76 @@ The goal is to gain practical experience monitoring Linux systems, collecting se
 
 ## Lab Environment
 
-The lab uses virtualized Ubuntu Linux systems to generate, collect, and investigate security events.
+The lab consists of three virtual machines operating in a controlled virtual network.
 
-The existing Linux Jump Server and Internal Server will be used as part of the monitoring environment.
+| System | Operating System | Role |
+|---|---|---|
+| Wazuh Server | Amazon Linux 2023 | Central security monitoring and alert management |
+| Jump Server | Ubuntu 26.04.1 LTS | SSH access and monitored Linux system |
+| Internal Server | Ubuntu 26.04.1 LTS | Internal system and monitored Linux server |
 
-Wazuh will serve as the central security monitoring platform when deployed.
+Both the Jump Server and Internal Server have Wazuh agents installed and connected to the central Wazuh Manager.
 
 ## Security Testing
 
-Initial testing includes:
+The following controlled security tests were performed:
 
 - Reviewing Linux authentication logs.
-- Identifying failed SSH login attempts.
-- Generating controlled failed login events.
-- Verifying that security events are recorded.
+- Generating failed SSH login attempts.
+- Verifying SSH authentication failure detection.
+- Simulating repeated SSH login failures to test brute-force detection.
+- Executing controlled sudo commands to verify privileged activity monitoring.
+- Verifying that Wazuh collected events and generated security alerts.
 
-## Expected Learning Outcomes
+## Security Detection and Testing Results
 
-- Understanding Security Information and Event Management (SIEM).
+The Wazuh security monitoring lab successfully detected and recorded the following controlled security tests:
+
+| Security Test | Wazuh Rule | Alert Level | Result |
+|---|---:|---:|---|
+| SSH Failed Login Detection | 5710 | 5 | Successful |
+| SSH Brute-Force Detection | 5712 | 10 | Successful |
+| Sudo Privilege Monitoring | 5402 | 3 | Successful |
+
+### Verified Capabilities
+
+- Centralized collection of Linux authentication logs.
+- Detection of failed SSH login attempts.
+- Correlation of repeated SSH failures to identify brute-force activity.
+- Monitoring of sudo commands and root privilege usage.
+- Security alert generation and investigation through the Wazuh Dashboard.
+- MITRE ATT&CK technique mapping.
+- Monitoring of multiple Linux systems through a centralized security platform.
+
+## Project Outcomes and Learning Experience
+
+Successfully configured and tested a multi-machine Linux security monitoring lab using Wazuh.
+
+This project provided practical experience with:
+
+- Security Information and Event Management (SIEM).
 - Linux security monitoring.
-- Log analysis and investigation.
-- Threat detection.
-- Security alert interpretation.
-- Basic incident response procedures.
+- Log collection and analysis.
+- SSH authentication monitoring.
+- Brute-force detection.
+- Privileged command monitoring.
+- Security alert investigation.
+- Basic incident detection and response procedures.
+
+These skills are relevant to entry-level SOC Analyst and Junior Security Analyst positions.
+
+## Evidence and Documentation
+
+Screenshots of the security detection results are available in the `Screenshots/` directory.
+
+Detailed testing procedures and results are documented in:
+
+`Documentation/SSH_Failed_Login_Test.md`
 
 ## Project Goal
 
 Build a functional security monitoring lab that demonstrates foundational Security Operations Center (SOC) skills and complements the Linux Secure Jump Server Lab.
 
-This project supports the development of practical skills relevant to entry-level SOC Analyst and Junior Security Analyst positions.
-
 ## Project Status
 
-**Status:** In Progress
+**Completed**
