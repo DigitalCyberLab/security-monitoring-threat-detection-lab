@@ -89,3 +89,40 @@ from 53 to 59 during testing.
 
 **Conclusion:** Internal Server SSH authentication monitoring
 and failed-login detection were successfully verified.
+
+## 3. SSH Brute-Force Detection
+
+**Result: Successful**
+
+A controlled SSH brute-force simulation was performed against the Internal Server to verify Wazuh's correlation and threat detection capabilities.
+
+**Test environment:**
+- Target: Internal Server
+- Operating System: Ubuntu 26.04.1 LTS
+- Target IP: 192.168.50.20
+- Test username: invalidtest
+- Source IP: 127.0.0.1
+- Wazuh Manager: 192.168.50.30
+
+**Detection configuration:**
+- Wazuh Rule ID: 5712
+- Alert Level: 10
+- Detection frequency: 8 matching events
+- Time window: 120 seconds
+- Source IP correlation: Enabled
+
+Multiple failed SSH authentication attempts were generated using separate SSH connections within the configured detection window.
+
+Wazuh successfully correlated the authentication failures and generated Rule 5712 brute-force alerts.
+
+The Wazuh Dashboard subsequently displayed three Rule 5712 alerts at severity level 10.
+
+Additional authentication-related detections were also observed:
+
+- Rule 2502: Repeated password failures
+- Rule 5551: Multiple failed logins within a short period
+- Rule 5758: Maximum authentication attempts exceeded
+
+**Conclusion:** SSH brute-force detection and authentication event correlation were successfully verified using the default Wazuh ruleset.
+
+No default Wazuh detection rules or SSH security limits were modified during testing.
