@@ -62,3 +62,30 @@ This provides a foundation for centralized security monitoring and automated thr
 - Collect authentication events centrally.
 - Generate security alerts.
 - Investigate suspicious login activity.
+
+- ## 2. Internal Server SSH Failed Login Detection
+
+**Result: Successful**
+
+A controlled SSH authentication test was performed on the Internal Server.
+
+Test details:
+- Server: Internal Server
+- Operating System: Ubuntu 26.04.1 LTS
+- IP Address: 192.168.50.20
+- Test username: invalidtest
+- Source IP: 127.0.0.1
+- Wazuh Rule ID: 5710
+- Alert Level: 5
+- Detection: SSH login attempt using a non-existent user
+
+Wazuh successfully collected the authentication events from
+/var/log/auth.log and generated Rule 5710 alerts.
+
+The events were received and recorded by the Wazuh Manager.
+
+The Wazuh Dashboard authentication failure count increased
+from 53 to 59 during testing.
+
+**Conclusion:** Internal Server SSH authentication monitoring
+and failed-login detection were successfully verified.
