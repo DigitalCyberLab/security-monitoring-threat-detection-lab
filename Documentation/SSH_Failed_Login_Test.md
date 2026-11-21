@@ -126,3 +126,30 @@ Additional authentication-related detections were also observed:
 **Conclusion:** SSH brute-force detection and authentication event correlation were successfully verified using the default Wazuh ruleset.
 
 No default Wazuh detection rules or SSH security limits were modified during testing.
+
+## 4. Sudo Privilege Monitoring
+
+**Result: Successful**
+
+A controlled sudo activity test was performed on the Internal Server to verify Wazuh's ability to monitor privileged command execution.
+
+**Test environment:**
+- Server: Internal Server
+- Operating System: Ubuntu 26.04.1 LTS
+- Server IP: 192.168.50.20
+- Username: josh
+- Privileged user: root
+
+**Test details:**
+- Command executed: `sudo id`
+- Expected result: Command executed with root privileges
+- Wazuh Rule ID: 5402
+- Alert Level: 3
+- Detection: Successful sudo to ROOT executed
+- MITRE Technique: T1548.003 — Sudo and Sudo Caching
+
+Wazuh successfully collected the sudo activity from `/var/log/auth.log` and generated a Rule 5402 alert.
+
+The alert confirmed the source user, destination user, executed command, and Internal Server agent.
+
+**Conclusion:** Sudo activity monitoring was successfully verified. Wazuh detected and recorded the execution of a privileged command on the Internal Server.
